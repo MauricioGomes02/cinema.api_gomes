@@ -13,7 +13,7 @@ namespace TmdbAdapter.Clients
     /// </para>
     /// <para>    
     /// Note que esta classe eh interna ao Adaptador, 
-    /// os dados serao mapeados a partir de <see cref="Domain.Models.Pesquisa" />.
+    /// os dados serao mapeados a partir de <see cref="Domain.Models.Search" />.
     /// O mapeamento eh feito em <see cref="TmdbAdapter.GetFilmesAsync"/>.
     /// </para>
     /// </summary>

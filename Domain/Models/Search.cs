@@ -2,17 +2,17 @@
 
 namespace Domain.Models
 {
-    public class Pesquisa
+    public class Search
     {
         /// <summary>
         /// Termo a ser pesquisado.
         /// </summary>
         [Required]
-        public string TermoPesquisa { get; set; }
+        public string SearchTerm { get; set; }
 
         /// <summary>
         /// Ano de lançamento.
         /// </summary>
-        public int? AnoLancamento { get; set; }
+        public int? ReleaseYear { get; set; }
     }
 }

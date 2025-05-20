@@ -11,7 +11,7 @@ namespace Application.Tests
     [TestClass]
     public class FilmesTests
     {
-        private readonly IFilmesService filmesService;
+        private readonly IMovieService filmesService;
         private readonly Mock<ITmdbAdapter> tmdbAdapterMock;
 		private readonly Mock<ICheckInAdapter> checkInAdapterMock;
 
@@ -24,7 +24,7 @@ namespace Application.Tests
         }
 
         [TestMethod]
-        [Trait(nameof(IFilmesService.ObterFilmesAsync), "Sucesso")]
+        [Trait(nameof(IMovieService.GetAsync), "Sucesso")]
         public async Task ObterFilmesAsync_Sucesso()
         {
             // Objeto que sera utilizado para retorno do Mock
@@ -39,12 +39,12 @@ namespace Application.Tests
                 };
 
             tmdbAdapterMock
-                .Setup(m => m.GetFilmesAsync(It.IsAny<Pesquisa>()))
+                .Setup(m => m.GetFilmesAsync(It.IsAny<Search>()))
                 .ReturnsAsync(expected);
 
-            var filmes = await filmesService.ObterFilmesAsync(new Pesquisa()
+            var filmes = await filmesService.ObterFilmesAsync(new Search()
             {
-                TermoPesquisa = "teste"
+                SearchTerm = "teste"
             });
 
             var exepectedSingle = expected.Single();
@@ -56,12 +56,12 @@ namespace Application.Tests
         }
 
         [TestMethod]
-        [Trait(nameof(IFilmesService.ObterFilmesAsync), "Erro")]
+        [Trait(nameof(IMovieService.GetAsync), "Erro")]
         public async Task ObterFilmesAsync_Erro()
         {
             await Assert.ThrowsAnyAsync<Exception>(async () =>
             {
-                await filmesService.ObterFilmesAsync(new Pesquisa());
+                await filmesService.ObterFilmesAsync(new Search());
             });
         }
     }

@@ -1,24 +1,27 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Infrastructure.Configurations.Models;
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 
 namespace Infrastructure.Configurations
 {
     public static class ConfigurationHelper
     {
-        public static T GetConfiguration<T>(this IConfiguration configuration)
+        public static T GetConfiguration<T>(this IConfiguration configuration) where T : class
         {
             var typeName = typeof(T).Name;
-            var ExistsChildren = configuration.GetChildren().Any(item => item.Key == typeName);
+            var existsChildren = configuration.GetChildren().Any(item => item.Key == typeName);
 
-            if (ExistsChildren)
+            var message = $"Configuration item not found for type {typeof(T).FullName}";
+
+            if (!existsChildren)
             {
-                configuration = configuration.GetSection(typeName);
+                throw new Exception(message);
             }
 
-            T model = configuration.GetConfiguration<T>();
+            var model = configuration.GetSection(typeName).Get<T>();
 
-            if (model == null)
+            if (model is null)
             {
-                var message = $"Configuration item not found for type {typeof(T).FullName}";
                 throw new InvalidOperationException(message);
             }
 

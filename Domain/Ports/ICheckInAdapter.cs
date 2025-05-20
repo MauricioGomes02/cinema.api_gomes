@@ -1,4 +1,4 @@
-﻿namespace Domain.Adapters
+﻿namespace Domain.Ports
 {
 	public interface ICheckInAdapter
 	{

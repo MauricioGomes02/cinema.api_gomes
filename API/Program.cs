@@ -1,8 +1,5 @@
-using Adapter.TmdbAdapter;
 using Application;
 using Domain.Services;
-using IMDbAdapter.Mongo;
-using Microsoft.Extensions.DependencyInjection.IMDbAdapter;
 using Infrastructure.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,14 +10,15 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 //Service
-builder.Services.AddScoped<IFilmesService, FilmesService>();
+builder.Services.AddScoped<IMovieService, MovieService>();
 
 //Adapter
-var tmdbAdapterConfiguration = configuration.GetConfiguration<TmdbAdapterConfiguration>();
-builder.Services.AddIMDbAdapter(tmdbAdapterConfiguration);
+//var tmdbAdapterConfiguration = configuration.GetConfiguration<TmdbAdapterConfiguration>();
+//builder.Services.AddIMDbAdapter(tmdbAdapterConfiguration, configuration);
+builder.Services.AddIMDb(configuration);
 
-var mongoAdapterConfiguration = configuration.GetConfiguration<MongoDbAdpterConfiguration>();
-builder.Services.AddMongo(mongoAdapterConfiguration);
+//var mongoAdapterConfiguration = configuration.GetConfiguration<MongoDbAdpterConfiguration>();
+//builder.Services.AddMongo(mongoAdapterConfiguration);
 
 var app = builder.Build();
 
