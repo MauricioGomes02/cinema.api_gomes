@@ -1,10 +1,9 @@
 using Adapter.TmdbAdapter;
-using Api;
 using Application;
-using baseMap;
 using Domain.Services;
 using IMDbAdapter.Mongo;
 using Microsoft.Extensions.DependencyInjection.IMDbAdapter;
+using Infrastructure.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
 ConfigurationManager configuration = builder.Configuration;
@@ -17,13 +16,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IFilmesService, FilmesService>();
 
 //Adapter
-builder.Services.AddIMDbAdapter(configuration.
-    SafeGet<TmdbAdapterConfiguration>());
+var tmdbAdapterConfiguration = configuration.GetConfiguration<TmdbAdapterConfiguration>();
+builder.Services.AddIMDbAdapter(tmdbAdapterConfiguration);
 
-builder.Services.AddMongo(configuration.
-    SafeGet<MongoDbAdpterConfiguration>());
-
-builder.Services.AddAutoMapperCustomizado();
+var mongoAdapterConfiguration = configuration.GetConfiguration<MongoDbAdpterConfiguration>();
+builder.Services.AddMongo(mongoAdapterConfiguration);
 
 var app = builder.Build();
 
