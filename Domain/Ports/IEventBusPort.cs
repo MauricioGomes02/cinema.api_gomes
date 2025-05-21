@@ -1,11 +1,9 @@
 ﻿namespace Domain.Ports
 {
-    public interface IEventBusPort
+    public interface IEventBusPort : IDisposable
     {
         Task PublishAsync<TEvent>(TEvent @event) where TEvent: class;
-        Task SubscribeAsync<TEvent, TEventHandler>() 
-            where TEvent: class 
-            where TEventHandler: IEventHandler;
+        Task SubscribeAsync<TEvent>(Func<TEvent, Task> func) where TEvent : class;
         Task UnSubscribeAsync<TEvent, TEventHandler>()
             where TEvent : class
             where TEventHandler : IEventHandler;

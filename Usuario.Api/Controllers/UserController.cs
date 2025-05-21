@@ -17,7 +17,7 @@ namespace Usuario.Api.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType<User>(StatusCodes.Status201Created)]
+        [ProducesResponseType<Rental>(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> AddAsync([FromBody] CreateUser createUser)
         {
@@ -26,7 +26,7 @@ namespace Usuario.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        [ProducesResponseType<User>(StatusCodes.Status200OK)]
+        [ProducesResponseType<Rental>(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetAsync(Guid id)
@@ -42,7 +42,7 @@ namespace Usuario.Api.Controllers
         }
 
         [HttpPut]
-        [ProducesResponseType<User>(StatusCodes.Status200OK)]
+        [ProducesResponseType<Rental>(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UpdateAsync([FromBody] User user)
@@ -52,7 +52,7 @@ namespace Usuario.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        [ProducesResponseType<User>(StatusCodes.Status200OK)]
+        [ProducesResponseType<Rental>(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> DeleteAsync(Guid id)
