@@ -1,0 +1,39 @@
+services:
+  # filme:
+  #   build: ./API
+  #   ports:
+  #     - 5001:80
+  #   environment:
+  #     - ASPNETCORE_ENVIRONMENT=Development
+
+  # usuario:
+  #   build: ./Usuario.Api
+  #   ports:
+  #     - 5002:80
+  #   environment:
+  #     - ASPNETCORE_ENVIRONMENT=Development
+  #   depends_on:
+  #     - mongo
+  #     - rabbitmq
+
+  mongo:
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"     # protocolo AMQP
+      - "15672:15672"   # interface web
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=admin
+  
+volumes:
+  mongo_data:
